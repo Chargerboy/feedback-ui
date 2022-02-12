@@ -3,9 +3,10 @@ import FeedBackItem from './FeedBackItem';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useContext } from 'react';
 import FeedBackContext from './context/FeedBackContext';
+import Spinner from './Spinner';
 
 const FeedBackList = () => {
-  const { data } = useContext(FeedBackContext);
+  const { data, isLoading } = useContext(FeedBackContext);
   //   Case 1: if there is no data/feeedback items
   const noFBstyles = {
     marginTop: '50%',
@@ -15,7 +16,7 @@ const FeedBackList = () => {
     alignContent: 'center',
   };
 
-  if (!data || data.length === 0) {
+  if (!isLoading && (!data || data.length === 0)) {
     return (
       <>
         <div style={noFBstyles}>No Feedbacks yet!</div>
@@ -24,7 +25,9 @@ const FeedBackList = () => {
   }
   // end of Case 1
 
-  return (
+  return isLoading ? (
+    <Spinner />
+  ) : (
     <div className="feedback-list">
       <AnimatePresence>
         {data.map((item) => (
