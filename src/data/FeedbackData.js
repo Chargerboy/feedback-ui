@@ -1,3 +1,5 @@
+// ignore
+
 const FeedbackData = [
   {
     id: 1,
